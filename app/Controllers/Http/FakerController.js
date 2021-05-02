@@ -1,9 +1,11 @@
 'use strict'
 
 const faker = require('faker');
+faker.locale = "es_MX";
 const { Parser } = require('json2csv');
 
 class FakerController {
+    
 
     buildModel ({ request, response }) {
         const { rows, fields } = request.post();
@@ -20,7 +22,6 @@ class FakerController {
         const json2csvParser = new Parser();
         const csv = json2csvParser.parse(results);
 
-        console.log(csv);
         response.header('Content-disposition', 'attachment; filename=data.csv');
         response.header('Content-Type', 'text/csv');
         response.status(200).send(csv);
